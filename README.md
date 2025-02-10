@@ -4,7 +4,7 @@ Standalone loadtesting tool for Muse dev/test-nets.
 
 ## Usage
 
-* Create and fill the `config.toml` file per the [source](develop/src/config.rs).
+* Create and fill the `config.toml` file per the [source](src/config.rs).
   * `fee_signer_pk` must be set to the secret of `marketplace.fee_signer`.
   * Make sure `users_count` is at least twice as big as `senders_count`.
   * A value for `batch_size` that reliably works without hitting weight/proof size limit is `1000`.
