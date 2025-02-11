@@ -1,7 +1,3 @@
-#![allow(unused_imports)]
-#![allow(unused_variables)]
-#![allow(dead_code)]
-
 mod substrate;
 mod config;
 
@@ -17,7 +13,6 @@ use std::{
 };
 
 use myth::runtime_types::{
-    pallet_nfts::types::{CollectionSetting, ItemSetting},
     pallet_marketplace::types::{Execution, Order, OrderType, SignatureData},
     primitive_types::U256,
     runtime_common::IncrementableU256
@@ -25,13 +20,10 @@ use myth::runtime_types::{
 use tracing_subscriber::prelude::*;
 use subxt::{
     backend::rpc::reconnecting_rpc_client::{ExponentialBackoff, RpcClient},
-    client::OnlineClientT,
-    //config::substrate::U256,
     ext::subxt_core::utils::AccountId20,
     OnlineClient,
 };
-use subxt_signer::eth::{Keypair, PublicKey};
-use eyre::WrapErr;
+use subxt_signer::eth::Keypair;
 use rand::prelude::*;
 use futures_lite::{prelude::*, stream};
 use futures_buffered::{BufferedStreamExt, BufferedTryStreamExt};
@@ -63,7 +55,8 @@ async fn main() -> Result<(), eyre::Report> {
 async fn run() -> Result<(), eyre::Report> {
     let mut rng = rand::rng();
 
-    let config = Config::from_file("config.toml")?;
+    let config_path = env::var("CONFIG_PATH").unwrap_or_else(|_| "config.toml".to_string());
+    let config = Config::from_file(&config_path)?;
 
     let rpc = RpcClient::builder()
         .retry_policy(ExponentialBackoff::from_millis(100).max_delay(Duration::from_secs(10)).take(10))
@@ -418,7 +411,7 @@ impl LoadContext {
                         users.push(bob);
                     }
 
-                    if let Err(e) = trade_res {
+                    if let Err(e) = burn_res {
                         tracing::warn!("Failure in burn: {e}");
                         tokio::time::sleep(Duration::from_secs(50)).await;
                         continue;
@@ -497,7 +490,7 @@ async fn transfer(
 
 async fn trade(
     api: &OnlineClient<MythConfig>,
-    pot: &Keypair,
+    _pot: &Keypair,
     sender: &Keypair,
     master: AccountId20,
     collection: IncrementableU256,
