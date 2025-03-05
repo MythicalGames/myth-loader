@@ -7,12 +7,16 @@ edition = "2021"
 color-eyre = "0.6.3"
 dotenvy = "0.15.7"
 eyre = "0.6.12"
+flume = "0.11.1"
 futures-buffered = "0.2.9"
 futures-lite = "2.6.0"
 hex = "0.4.3"
 parity-scale-codec = { version = "3.6.12", features = ["derive"] }
 rand = "0.9.0"
+rayon = "1.10.0"
 serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.139"
+serde_with = "3.12.0"
 subxt = { version = "0.38.1", features = ["tokio", "reconnecting-rpc-client", "unstable-metadata"] }
 subxt-signer = { version = "0.38.0", features = ["unstable-eth"] }
 tokio = { version = "1.43.0", features = ["macros", "time", "rt"] }
@@ -21,3 +25,9 @@ tracing = { version = "0.1.41", features = ["log", "async-await"] }
 tracing-error = "0.2.1"
 tracing-futures = "0.2.5"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+
+[profile.dev]
+panic = 'abort'
+
+[profile.release]
+panic = 'abort'

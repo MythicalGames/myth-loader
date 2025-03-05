@@ -5,6 +5,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize)]
 pub struct Config {
     pub node_url: String,
+    pub context_file_path: String,
 
     pub pot_pk: String,
     pub master_pk: String,

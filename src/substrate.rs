@@ -6,6 +6,7 @@ use subxt::{
 use subxt::ext::subxt_core::utils::AccountId20;
 use subxt_signer::eth::Signature;
 
+#[derive(Clone)]
 pub struct MythConfig;
 
 impl subxt::Config for MythConfig {
