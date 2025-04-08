@@ -19,7 +19,7 @@ serde_json = "1.0.139"
 serde_with = "3.12.0"
 subxt = { version = "0.38.1", features = ["tokio", "reconnecting-rpc-client", "unstable-metadata"] }
 subxt-signer = { version = "0.38.0", features = ["unstable-eth"] }
-tokio = { version = "1.43.0", features = ["macros", "time", "rt"] }
+tokio = { version = "1.43.1", features = ["macros", "time", "rt"] }
 toml = { version = "0.8.20", features = ["preserve_order"] }
 tracing = { version = "0.1.41", features = ["log", "async-await"] }
 tracing-error = "0.2.1"
